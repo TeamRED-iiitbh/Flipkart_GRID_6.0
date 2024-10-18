@@ -990,7 +990,7 @@
     "image": "test_images\\031.png",
     "product_info": {
       "Product name": "HIBISCUS & METHI POWDER",
-      "Identification number": "8906215165864",
+      "Identification number": "",
       "Barcode": "8906215165864",
       "Quantity size": "50 g",
       "Weight": "50 g",
@@ -1032,7 +1032,7 @@
     "image": "test_images\\033.png",
     "product_info": {
       "Product name": "Coffee Joy",
-      "Identification number": "8996007301760",
+      "Identification number": "",
       "Barcode": "8996007301760",
       "Quantity size": "78 g",
       "Weight": "78 g",
@@ -1052,7 +1052,7 @@
   {
     "image": "test_images\\034.png",
     "product_info": {
-      "Product name": "POTATO CRISPS",
+      "Product name": "Pringles Tangy Tomato Twist Flavour",
       "Identification number": "",
       "Barcode": "8886467125614",
       "Quantity size": "102 g",
@@ -1066,7 +1066,7 @@
       "Price": "120.00",
       "MRP": "120.00",
       "Manufacturer": "Kellogg Asia Products Sdn Bhd",
-      "FSSAI certified": "",
+      "FSSAI certified": "fssai",
       "Nutritional information": "Per 100 g: Energy 510 kcal, Total Fat 26.5 g, Saturated Fatty Acids 11.6 g, Trans Fatty Acids 0.3 g, Cholesterol 0 mg, Carbohydrates 63.4 g, Total Sugars 4.2 g, Added Sugars 2.1 g, Protein 4.5 g, Sodium 643 mg"
     }
   },
@@ -1082,13 +1082,13 @@
       "Expiration date": "",
       "Use before date": "",
       "Country of origin": "INDIA",
-      "Manufacturing date": "",
+      "Manufacturing date": "25 02 24",
       "Contact information": "1800-208-2653",
-      "Price": "",
-      "MRP": "",
+      "Price": "20.0",
+      "MRP": "20.0",
       "Manufacturer": "The Coca-Cola Company",
       "FSSAI certified": "fssai",
-      "Nutritional information": "7.5 kcal per 100 ml"
+      "Nutritional information": "30 kcal per 100 ml"
     }
   },
   {
@@ -1097,16 +1097,16 @@
       "Product name": "RED X for men",
       "Identification number": "8904173500355",
       "Barcode": "8904173500355",
-      "Quantity size": "",
+      "Quantity size": "100 ml",
       "Weight": "",
-      "Volume": "",
-      "Expiration date": "",
-      "Use before date": "",
+      "Volume": "100 ml",
+      "Expiration date": "DEC 2026",
+      "Use before date": "DEC 2026",
       "Country of origin": "",
-      "Manufacturing date": "",
+      "Manufacturing date": "JAN 2024",
       "Contact information": "",
-      "Price": "Rs 350.00",
-      "MRP": "",
+      "Price": "380.00",
+      "MRP": "380.00",
       "Manufacturer": "Ramsons Perfumes Pvt. Ltd.",
       "FSSAI certified": "",
       "Nutritional information": ""
@@ -1116,7 +1116,7 @@
     "image": "test_images\\037.png",
     "product_info": {
       "Product name": "Dabur Gulabari PREMIUM Rose Water",
-      "Identification number": "",
+      "Identification number": "BT01395",
       "Barcode": "8901207040801",
       "Quantity size": "250 ml",
       "Weight": "",
@@ -1126,8 +1126,8 @@
       "Country of origin": "",
       "Manufacturing date": "08/2024",
       "Contact information": "E-mail: daburcares@dabur.com\nToll Free: 1800-103-1644\nWebsite: www.dabur.com",
-      "Price": "Rs. 92",
-      "MRP": "Rs. 92",
+      "Price": "92",
+      "MRP": "92",
       "Manufacturer": "DABUR INDIA LTD.",
       "FSSAI certified": "",
       "Nutritional information": ""
