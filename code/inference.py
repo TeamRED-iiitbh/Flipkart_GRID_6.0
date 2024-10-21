@@ -9,6 +9,7 @@ from PIL import Image
 from peft import PeftModel, PeftConfig
 from transformers import AutoModelForCausalLM
 
+
 class LLavaDataCollator:
     def __init__(self, processor):
         self.processor = processor
@@ -86,8 +87,8 @@ def init_base_model():
 
 
 def init_fine_tuned_model():
-    base_model = init_base_model()
-    processor = AutoProcessor.from_pretrained("llava-hf/llava-1.5-13b-hf")
+    base_model, processor = init_base_model()
+    # processor = AutoProcessor.from_pretrained("llava-hf/llava-1.5-13b-hf")
     LLAVA_CHAT_TEMPLATE = """A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions. {% for message in messages %}{% if message['role'] == 'user' %}USER: {% else %}ASSISTANT: {% endif %}{% for item in message['content'] %}{% if item['type'] == 'text' %}{{ item['text'] }}{% elif item['type'] == 'image' %}<image>{% endif %}{% endfor %}{% if message['role'] == 'user' %} {% else %}{{eos_token}}{% endif %}{% endfor %}"""
     processor.tokenizer.chat_template = LLAVA_CHAT_TEMPLATE
 
@@ -95,45 +96,57 @@ def init_fine_tuned_model():
     model_tuned = PeftModel.from_pretrained(base_model, "astro189/working")
     return model_tuned, processor
 
-def generate_response(image_path, prompt):
+def generate_response(image, prompts):
     torch.cuda.empty_cache()
     model_tuned, processor = init_fine_tuned_model()
     
     data_collator = LLavaDataCollator(processor)
-    image = Image.open(image_path)
-    messages = [
-        {
-            "role": "user",
-            "content": [
-                {"type": "text", "text": prompt},
-                {"type": "image", "image": None}
-            ]
-        }
-    ]
+    product_info = {}
+    # image = Image.open(image_path)
+    for prompt in prompts:
+        messages = [
+            {
+                "role": "user",
+                "content": [
+                    {"type": "text", "text": prompt},
+                    {"type": "image", "image": None}
+                ]
+            }
+        ]
    
-    text = processor.tokenizer.apply_chat_template(messages, tokenize=False)
+        text = processor.tokenizer.apply_chat_template(messages, tokenize=False)
 
-    model_inputs = processor(
-        images=image,
-        text=text,
-        return_tensors="pt",
-        padding=True
-    )
-
-    with torch.no_grad():
-        outputs = model_tuned.generate(
-            **model_inputs,
-            max_new_tokens=128,
-            do_sample=False
+        model_inputs = processor(
+            images=image,
+            text=text,
+            return_tensors="pt",
+            padding=True
         )
 
-    response = processor.tokenizer.decode(outputs[0], skip_special_tokens=True)
-    response = response.split("ASSISTANT:")[-1].strip()
-    return response
+        with torch.no_grad():
+            outputs = model_tuned.generate(
+                **model_inputs,
+                max_new_tokens=128,
+                do_sample=False
+            )
 
-if __name__ == "___main__":
-    image_path = ".IMAGES/005.png"
+        response = processor.tokenizer.decode(outputs[0], skip_special_tokens=True)
+        response = response.split("ASSISTANT:")[-1].strip()
+
+        key = prompt.split("What is the ")[-1].split(" of the product")[0]
+        key = key.replace("Who is the ", "").replace("Is the product ", "")
+        key = key.title()
+
+        product_info[key] = response
+        print(f"Question: {prompt}")
+        print(f"Response: {response}")
+    return product_info
+
+if __name__ == "___main___":
+    image_path = ".IMAGE/005.png"
+    img = Image.open(image_path)
+    print(f"Image Path: {image_path}")
     prompt = "What is the name of the product?"
-    response = generate_response(image_path, prompt)
+    response = generate_response(img, prompt)
     print(f"Question: {prompt}")
     print(f"Response: {response}")

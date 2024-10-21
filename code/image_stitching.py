@@ -102,7 +102,7 @@ def unwrap_image(video_path):
 
     # output_image_show = cv2.resize(output_image, (int(output_image.shape[1]//8), int(output_image.shape[0]//8)))
     print(f"Output Shape:{output_image.shape}")
-    cv2.imwrite(".\IMAGES\output_image.png", output_image)
+    cv2.imwrite(".\IMAGE\output_image.png", output_image)
     print("Image Saved")
     # cv2.waitKey(0)
     # cv2.destroyAllWindows()

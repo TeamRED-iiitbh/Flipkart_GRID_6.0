@@ -1,8 +1,9 @@
 import json
 import os
-from inference import generate_response
+from CODE.inference import generate_response
+from PIL import Image
 
-def ask_questions(image_path):
+def ask_questions(image, base_name):
     questions = [
         "What is the name of the product?",
         "What is the identification number of the product?",
@@ -22,29 +23,10 @@ def ask_questions(image_path):
         "What is the nutritional information of the product?"
     ]
 
-    product_info = {}
-    for question in questions:
-        response = generate_response(image_path, question)
-        print(f"Question: {question}")
-        print(f"Response: {response}")
-        print()
+    product_info = generate_response(image, questions)
 
- 
-        key = question.split("What is the ")[-1].split(" of the product")[0]
-        key = key.replace("Who is the ", "").replace("Is the product ", "")
-        key = key.title()
-
-        product_info[key] = response
-
-    return product_info
-
-
-image_path = ""
-product_info = ask_questions(image_path)
-
-
-output = {
-    "image": os.path.basename(image_path),
+    output = {
+    "image": base_name,
     "product_info": {
         "Product name": product_info.get("Name", ""),
         "Identification number": product_info.get("Identification Number", ""),
@@ -62,11 +44,18 @@ output = {
         "Manufacturer": product_info.get("Manufacturer", ""),
         "FSSAI certified": product_info.get("Fssai Certified", ""),
         "Nutritional information": product_info.get("Nutritional Information", "")
+        }
     }
-}
+
+    with open("product_info.json", "w") as json_file:
+        json.dump(output, json_file, indent=2)
+
+    print("Product information has been saved to product_info.json")
 
 
-with open("./PRODUCT DATA/product_info.json", "w") as json_file:
-    json.dump(output, json_file, indent=2)
 
-print("Product information has been saved to product_info.json")
+
+
+if __name__== "__main__":
+    image_path = ""
+    product_info = ask_questions(image_path)
