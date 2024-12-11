@@ -1,7 +1,7 @@
 from email.mime import base
 from pdb import run
-from CODE.image_stitching import unwrap_image
-from CODE.product_info import ask_questions
+from CODE.build.image_stitching import unwrap_image
+from CODE.build.product_info import ask_questions
 from CODE.update_ui import run_ui
 import os
 from PIL import Image
